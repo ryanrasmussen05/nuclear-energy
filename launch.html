@@ -1,0 +1,152 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+		<title>Nuclear Energy</title>
+		<style>
+			@font-face {
+				font-family: 'roboto';
+				src: url('assets/Roboto-Bold.ttf');
+			}
+
+			/*GLOBAL STYLES*/
+			body {
+				margin: 0;
+				font-family: roboto;
+				background-color: white;
+				color: #303030
+			}
+			.fullscreen {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+
+			/*MAIN VIEW STYLES*/
+			#mainView {
+				display: flex;
+				flex-direction: column;
+			}
+			#mainViewTitle {
+				flex-shrink: 0;
+				text-align: center;
+			}
+			#mainViewButtons {
+				flex-grow: 1;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				padding: 0 100px;
+			}
+			.videoLabel {
+				font-size: 36px;
+				margin-bottom: 20px;
+				margin-top: -45px;
+				text-align: center;
+			}
+			.contentWrapper {
+				flex: 1;
+			}
+			.videoContainer {
+				position: relative;
+				cursor: pointer;
+			}
+			.videoCover {
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			#videoSpacer {
+				flex-shrink: 0;
+				width: 100px;
+			}
+
+			video {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="mainView" class="fullscreen">
+			<div id="mainViewTitle">
+				<div style="font-size: 115px; margin-top: 30px">Nuclear Energy</div>
+				<div style="font-size: 50px">Click to play a video</div>
+			</div>
+			<div id="mainViewButtons">
+				<div class="contentWrapper">
+					<div class="videoLabel">
+						Science Version
+					</div>
+					<div class="videoContainer" onclick="playScienceVideo()">
+						<div id="videoCoverScience" class="fullscreen videoCover" style="background-image: url('assets/science.png')"></div>
+						<video id="videoPlayerScience" src="assets/science_version.mp4">
+							Your browser does not support HTML5 video.
+						</video>
+					</div>
+				</div>
+				<div id="videoSpacer"></div>
+				<div class="contentWrapper">
+					<div class="videoLabel">
+						Hollywood Version
+					</div>
+					<div class="videoContainer" onclick="playHollywoodVideo()">
+						<div id="videoCoverHollywood" class="fullscreen videoCover" style="background-image: url('assets/hollywood.png')"></div>
+						<video id="videoPlayerHollywood" src="assets/hollywood_version.mp4">
+							Your browser does not support HTML5 video.
+						</video>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body> 
+
+	<script>
+		window.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+		var scienceVideoPlayer = document.getElementById("videoPlayerScience");
+		var hollywoodVideoPlayer = document.getElementById("videoPlayerHollywood");
+		var scienceVideoCover = document.getElementById("videoCoverScience");
+		var hollywoodVideoCover = document.getElementById("videoCoverHollywood");
+
+		scienceVideoPlayer.onended = function() {
+		    resetScienceVideo();
+		};
+
+		hollywoodVideoPlayer.onended = function() {
+		    resetHollywoodVideo();
+		};
+
+        function playScienceVideo() {
+            resetHollywoodVideo();
+            scienceVideoCover.style.display = "none";
+            scienceVideoPlayer.volume = 1.0;
+            scienceVideoPlayer.play();
+		}
+
+		function playHollywoodVideo() {
+            resetScienceVideo();
+            hollywoodVideoCover.style.display = "none";
+            hollywoodVideoPlayer.volume = 1.0;
+            hollywoodVideoPlayer.play();
+		}
+
+		function resetHollywoodVideo() {
+            hollywoodVideoPlayer.pause();
+            hollywoodVideoPlayer.currentTime = 0;
+            hollywoodVideoCover.style.display = "block";
+		}
+
+		function resetScienceVideo() {
+            scienceVideoPlayer.pause();
+            scienceVideoPlayer.currentTime = 0;
+            scienceVideoCover.style.display = "block";
+
+		}
+	</script> 
+
+</html>
